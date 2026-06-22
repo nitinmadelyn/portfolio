@@ -80,14 +80,18 @@ export default function Navbar() {
           <button
             className="md:hidden text-white/60 hover:text-white transition-colors z-[110]"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
-            {isMobileMenuOpen ? <FiX size={20} /> : <FiMenu size={20} />}
+            {isMobileMenuOpen ? <FiX size={20} aria-hidden="true" /> : <FiMenu size={20} aria-hidden="true" />}
           </button>
         </div>
       </nav>
 
       {/* Mobile Menu Overlay */}
-      <div 
+      <div
+        id="mobile-menu"
         className={`fixed inset-0 bg-black z-[90] flex flex-col items-center justify-center transition-all duration-500 ease-in-out md:hidden ${
           isMobileMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-full'
         }`}

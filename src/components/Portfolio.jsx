@@ -18,7 +18,7 @@ const projectData = [
     link: "https://www.beforeyoubuy.com.au/",
   },
   {
-    image: "/works/stashly.pro.png",
+    image: "/works/stashly.pro.webp",
     title: "Stashly.pro",
     desc: "Cross-platform personal bookmark manager — save, organize and revisit anything from the web on iOS and Android.",
     tags: ["React Native", "Next.js", "Supabase", "iOS", "Android"],

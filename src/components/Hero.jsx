@@ -21,13 +21,15 @@ export default function Hero() {
 
   const frameCount = 240;
   const currentFrame = (index) => `/images/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.jpg`;
-  
+
   const imagesRef = useRef([]);
   // We use an object to track the frame so GSAP can animate the value smoothly
   const seqRef = useRef({ frame: 0 });
+  // Track whether the very first frame has loaded so we can show the UI immediately
+  const firstFrameShownRef = useRef(false);
 
   useEffect(() => {
-    // Preload sequence
+    // Preload sequence — show UI as soon as frame 0 is ready; load rest in background
     let loadedCount = 0;
     for (let i = 0; i < frameCount; i++) {
         const img = new Image();
@@ -35,10 +37,19 @@ export default function Hero() {
         img.onload = () => {
             loadedCount++;
             setLoadingProgress(Math.floor((loadedCount / frameCount) * 100));
+            // Show the UI immediately once the first frame is available
+            if (i === 0 && !firstFrameShownRef.current) {
+                firstFrameShownRef.current = true;
+                setLoaded(true);
+            }
             if (loadedCount === frameCount) setLoaded(true);
         };
         img.onerror = () => {
             loadedCount++;
+            if (i === 0 && !firstFrameShownRef.current) {
+                firstFrameShownRef.current = true;
+                setLoaded(true);
+            }
             if (loadedCount === frameCount) setLoaded(true);
         };
         imagesRef.current.push(img);
@@ -198,14 +209,14 @@ export default function Hero() {
 
         {/* --- SOCIAL LINKS --- */}
         <div className="portfolio-ui absolute bottom-12 left-8 md:left-12 z-[60] flex flex-col space-y-5">
-            <a href="https://github.com/nitinmadelyn" target="_blank" rel="noreferrer" className="social-icon opacity-0 text-gray-500 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all">
-                <SiGithub className="w-[18px] h-[18px]" />
+            <a href="https://github.com/nitinmadelyn" target="_blank" rel="noreferrer" aria-label="GitHub profile" className="social-icon opacity-0 text-gray-500 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all">
+                <SiGithub className="w-[18px] h-[18px]" aria-hidden="true" role="presentation" focusable="false" />
             </a>
-            <a href="https://www.linkedin.com/in/nitinmuchhadiya" target="_blank" rel="noreferrer" className="social-icon opacity-0 text-gray-500 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all">
-                <FiLinkedin className="w-[18px] h-[18px]" />
+            <a href="https://www.linkedin.com/in/nitinmuchhadiya" target="_blank" rel="noreferrer" aria-label="LinkedIn profile" className="social-icon opacity-0 text-gray-500 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all">
+                <FiLinkedin className="w-[18px] h-[18px]" aria-hidden="true" role="presentation" focusable="false" />
             </a>
-            <a href="https://www.upwork.com/freelancers/~019197dea2650064ed?viewMode=1" target="_blank" rel="noreferrer" className="social-icon opacity-0 text-gray-500 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all">
-                <SiUpwork className="w-[18px] h-[18px]" />
+            <a href="https://www.upwork.com/freelancers/~019197dea2650064ed?viewMode=1" target="_blank" rel="noreferrer" aria-label="Upwork profile" className="social-icon opacity-0 text-gray-500 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all">
+                <SiUpwork className="w-[18px] h-[18px]" aria-hidden="true" role="presentation" focusable="false" />
             </a>
         </div>
 
