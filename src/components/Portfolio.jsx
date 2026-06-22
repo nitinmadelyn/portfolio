@@ -4,14 +4,14 @@ import { motion } from "framer-motion";
 
 const projectData = [
   {
-    image: "/works/import.io.png",
+    image: "/works/import.io.webp",
     title: "Import.io — $8.8M ARR",
     desc: "Scaled web data extraction platform to $8.8M ARR with high-performance scrapers and distributed data pipelines.",
     tags: ["Puppeteer", "Node.js", "ElasticSearch", "AWS", "Web Scrapers"],
     link: "https://import.io/",
   },
   {
-    image: "/works/beforeyoubid.com.au.png",
+    image: "/works/beforeyoubid.com.au.webp",
     title: "PropTech: BeforeYouBuy",
     desc: "Australian PropTech platform that raised $5M in Series B — helping buyers make informed property decisions.",
     tags: ["Next.js", "PostgreSQL", "Stripe", "AWS"],
@@ -57,9 +57,11 @@ const Portfolio = () => {
             className="group relative overflow-hidden rounded-[2rem] bg-white/5 border border-white/10"
           >
             <div className="relative overflow-hidden aspect-[4/3] rounded-[1.5rem] m-2">
-              <img 
-                src={project.image} 
-                alt={project.title} 
+              <img
+                src={project.image}
+                alt={project.title}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity" />
