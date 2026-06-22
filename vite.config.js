@@ -10,12 +10,12 @@ export default defineConfig({
     chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor-react':  ['react', 'react-dom'],
-          'vendor-gsap':   ['gsap'],
-          'vendor-framer': ['framer-motion'],
-          'vendor-email':  ['@emailjs/browser', 'react-toastify'],
-          'vendor-icons':  ['react-icons'],
+        manualChunks(id) {
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) return 'vendor-react';
+          if (id.includes('node_modules/gsap')) return 'vendor-gsap';
+          if (id.includes('node_modules/framer-motion')) return 'vendor-framer';
+          if (id.includes('node_modules/@emailjs') || id.includes('node_modules/react-toastify')) return 'vendor-email';
+          if (id.includes('node_modules/react-icons')) return 'vendor-icons';
         },
       },
     },
