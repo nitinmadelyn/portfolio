@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { motion, AnimatePresence } from 'framer-motion';
 import { SiGithub, SiUpwork } from 'react-icons/si';
 import { FiLinkedin } from 'react-icons/fi';
 
@@ -216,84 +215,82 @@ export default function Hero() {
             className="absolute top-0 left-0 w-full h-full object-cover z-10 opacity-0 scale-95"
         />
 
-        {/* --- PORTFOLIO TEXT OVERLAY --- */}
-        <AnimatePresence>
-            {loaded && (
-                <div className="portfolio-ui absolute inset-0 z-[50] pointer-events-none flex flex-col md:flex-row justify-between items-end md:items-center px-6 md:px-[15%] lg:px-[18%] pt-0 pb-16 md:pt-0 md:pb-0">
+        {/* --- PORTFOLIO TEXT OVERLAY — pure CSS transitions, no Framer Motion on critical path --- */}
+        {loaded && (
+            <div className="portfolio-ui absolute inset-0 z-[50] pointer-events-none flex flex-col md:flex-row justify-between items-end md:items-center px-6 md:px-[15%] lg:px-[18%] pt-0 pb-16 md:pt-0 md:pb-0">
 
-                    {/* LEFT SIDE: Name and Role */}
-                    <div className="w-full md:w-[35%] flex flex-col items-start text-left">
-                        {currentFrameIdx >= 60 && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, ease: "easeOut" }}
-                                className="mb-3"
-                            >
-                                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans font-bold text-white tracking-[0.1em] uppercase leading-none" style={{ textShadow: "0 0 20px rgba(255,255,255,0.2)" }}>
-                                    {titleText}
-                                </h1>
-                            </motion.div>
-                        )}
-
-                        {currentFrameIdx >= 80 && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                                className="relative inline-block mb-3"
-                            >
-                                <h2 className="text-xs sm:text-sm md:text-md lg:text-lg font-mono text-gray-300 tracking-[0.2em] uppercase pb-2">
-                                    Full Stack Engineer
-                                </h2>
-                                <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/60"></div>
-                            </motion.div>
-                        )}
-
-                        {currentFrameIdx >= 80 && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-                                className="flex items-center gap-2"
-                            >
-                                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
-                                <span className="text-[10px] font-mono text-blue-600 tracking-[0.3em] uppercase">15+ Yrs Experience</span>
-                            </motion.div>
-                        )}
+                {/* LEFT SIDE: Name and Role */}
+                <div className="w-full md:w-[35%] flex flex-col items-start text-left">
+                    <div
+                        className="mb-3"
+                        style={{
+                            opacity: currentFrameIdx >= 60 ? 1 : 0,
+                            transform: currentFrameIdx >= 60 ? 'translateY(0)' : 'translateY(30px)',
+                            transition: 'opacity 0.8s ease, transform 0.8s ease',
+                        }}
+                    >
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans font-bold text-white tracking-[0.1em] uppercase leading-none" style={{ textShadow: "0 0 20px rgba(255,255,255,0.2)" }}>
+                            {titleText}
+                        </h1>
                     </div>
 
-                    {/* RIGHT SIDE: Description and Button */}
-                    <div className="w-full md:w-[35%] flex flex-col items-start text-left mt-4 md:mt-0 md:pl-8">
-                        {currentFrameIdx >= 120 && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, ease: "easeOut" }}
-                                className="mb-5"
-                            >
-                                <p className="text-gray-400 text-xs sm:text-sm md:text-sm lg:text-base font-light tracking-wide leading-relaxed">
-                                    Crafting modern, scalable and high-performance web & mobile applications with precision engineering and seamless user experience.
-                                </p>
-                            </motion.div>
-                        )}
+                    <div
+                        className="relative inline-block mb-3"
+                        style={{
+                            opacity: currentFrameIdx >= 80 ? 1 : 0,
+                            transform: currentFrameIdx >= 80 ? 'translateY(0)' : 'translateY(30px)',
+                            transition: 'opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s',
+                        }}
+                    >
+                        <h2 className="text-xs sm:text-sm md:text-md lg:text-lg font-mono text-gray-300 tracking-[0.2em] uppercase pb-2">
+                            Full Stack Engineer
+                        </h2>
+                        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/60"></div>
+                    </div>
 
-                        {currentFrameIdx >= 160 && (
-                            <motion.div 
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                                className="pointer-events-auto"
-                            >
-                                <a href="#projects" className="inline-flex items-center px-8 py-3 border border-gray-700 bg-black/50 hover:bg-black/80 hover:border-blue-500/50 transition-colors cursor-pointer rounded-sm backdrop-blur-md group">
-                                    <span className="text-gray-300 font-mono tracking-widest uppercase text-xs group-hover:text-white transition-colors">Explore Work</span>
-                                </a>
-                            </motion.div>
-                        )}
+                    <div
+                        className="flex items-center gap-2"
+                        style={{
+                            opacity: currentFrameIdx >= 80 ? 1 : 0,
+                            transform: currentFrameIdx >= 80 ? 'translateY(0)' : 'translateY(20px)',
+                            transition: 'opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s',
+                        }}
+                    >
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                        <span className="text-[10px] font-mono text-blue-600 tracking-[0.3em] uppercase">15+ Yrs Experience</span>
                     </div>
                 </div>
-            )}
-        </AnimatePresence>
+
+                {/* RIGHT SIDE: Description and Button */}
+                <div className="w-full md:w-[35%] flex flex-col items-start text-left mt-4 md:mt-0 md:pl-8">
+                    <div
+                        className="mb-5"
+                        style={{
+                            opacity: currentFrameIdx >= 120 ? 1 : 0,
+                            transform: currentFrameIdx >= 120 ? 'translateY(0)' : 'translateY(30px)',
+                            transition: 'opacity 0.8s ease, transform 0.8s ease',
+                        }}
+                    >
+                        <p className="text-gray-400 text-xs sm:text-sm md:text-sm lg:text-base font-light tracking-wide leading-relaxed">
+                            Crafting modern, scalable and high-performance web & mobile applications with precision engineering and seamless user experience.
+                        </p>
+                    </div>
+
+                    <div
+                        className="pointer-events-auto"
+                        style={{
+                            opacity: currentFrameIdx >= 160 ? 1 : 0,
+                            transform: currentFrameIdx >= 160 ? 'translateY(0)' : 'translateY(30px)',
+                            transition: 'opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s',
+                        }}
+                    >
+                        <a href="#projects" className="inline-flex items-center px-8 py-3 border border-gray-700 bg-black/50 hover:bg-black/80 hover:border-blue-500/50 transition-colors cursor-pointer rounded-sm backdrop-blur-md group">
+                            <span className="text-gray-300 font-mono tracking-widest uppercase text-xs group-hover:text-white transition-colors">Explore Work</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        )}
     </div>
   );
 }

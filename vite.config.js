@@ -10,12 +10,14 @@ export default defineConfig({
     chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
+        // Only split JS-only libraries — never split packages that include CSS
+        // (react-toastify has CSS; splitting it creates an extra render-blocking stylesheet)
         manualChunks(id) {
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) return 'vendor-react';
-          if (id.includes('node_modules/gsap')) return 'vendor-gsap';
-          if (id.includes('node_modules/framer-motion')) return 'vendor-framer';
-          if (id.includes('node_modules/@emailjs') || id.includes('node_modules/react-toastify')) return 'vendor-email';
-          if (id.includes('node_modules/react-icons')) return 'vendor-icons';
+          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) return 'vendor-react';
+          if (id.includes('node_modules/gsap/')) return 'vendor-gsap';
+          if (id.includes('node_modules/framer-motion/')) return 'vendor-framer';
+          if (id.includes('node_modules/react-icons/')) return 'vendor-icons';
+          // react-toastify and @emailjs stay in main chunk (toastify has CSS — must not be split)
         },
       },
     },
