@@ -20,7 +20,7 @@ export default function Hero() {
   const descWrapperRef   = useRef(null);
   const ctaWrapperRef    = useRef(null);
 
-  const frameCount = 240;
+  const frameCount = 238;
   const currentFrame = (index) =>
     `/images/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.jpg`;
 

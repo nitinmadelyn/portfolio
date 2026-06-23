@@ -87,7 +87,7 @@ export default function About() {
         }}
       >
         <img
-          src="/images/ezgif-frame-240.jpg"
+          src="/images/ezgif-frame-235.jpg"
           alt="About Profile"
           className="w-full h-full object-cover opacity-50 grayscale"
         />
