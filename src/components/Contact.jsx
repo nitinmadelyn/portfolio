@@ -116,6 +116,23 @@ const Contact = () => {
     };
   }, [loaded]);
 
+  const toastTheme = {
+    style: {
+      background: '#020202',
+      border: '1px solid rgba(37, 99, 235, 0.35)',
+      color: '#fff',
+      fontFamily: 'monospace',
+      fontSize: '10px',
+      letterSpacing: '0.25em',
+      textTransform: 'uppercase',
+      borderRadius: '0',
+      boxShadow: '0 0 40px rgba(37, 99, 235, 0.12), inset 0 0 40px rgba(0,0,0,0.4)',
+      backdropFilter: 'blur(12px)',
+      padding: '16px 20px',
+    },
+    progressStyle: { background: '#2563EB' },
+  };
+
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
@@ -126,11 +143,23 @@ const Contact = () => {
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       )
       .then(() => {
-        toast.success("TRANSMISSION_COMPLETE 🚀");
+        toast.success('TRANSMISSION_COMPLETE', {
+          ...toastTheme,
+          icon: () => <span style={{ color: '#2563EB', fontSize: '16px' }}>✦</span>,
+        });
         formRef.current.reset();
       })
-      .catch((err) => {
-        toast.error("CONNECTION_FAILURE ❌");
+      .catch(() => {
+        toast.error('CONNECTION_FAILURE', {
+          ...toastTheme,
+          style: {
+            ...toastTheme.style,
+            border: '1px solid rgba(239, 68, 68, 0.35)',
+            boxShadow: '0 0 40px rgba(239, 68, 68, 0.1), inset 0 0 40px rgba(0,0,0,0.4)',
+          },
+          progressStyle: { background: '#EF4444' },
+          icon: () => <span style={{ color: '#EF4444', fontSize: '16px' }}>✕</span>,
+        });
       });
   };
 
@@ -285,8 +314,10 @@ const Contact = () => {
 
       <ToastContainer
         position="bottom-right"
-        toastClassName="bg-black border border-blue-500/30 text-white font-mono text-[9px] rounded-none backdrop-blur-xl"
-        progressClassName="bg-blue-600"
+        theme="dark"
+        closeButton={false}
+        hideProgressBar={false}
+        autoClose={4000}
       />
     </div>
   );

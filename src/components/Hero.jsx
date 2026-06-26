@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SiGithub, SiUpwork } from 'react-icons/si';
+import { SiGithub, SiUpwork, SiYoutube } from 'react-icons/si';
 import { FiLinkedin } from 'react-icons/fi';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -279,6 +279,16 @@ export default function Hero() {
         >
           <SiUpwork className="w-[18px] h-[18px]" aria-hidden="true" role="presentation" focusable="false" />
         </a>
+        <a
+          href="https://www.youtube.com/@nightfighter47"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="YouTube channel"
+          className="text-gray-500 hover:text-red-500 hover:drop-shadow-[0_0_8px_rgba(239,68,68,0.8)] transition-all"
+          style={{ opacity: 0, animation: 'socialSlideIn 0.2s ease 1.95s forwards' }}
+        >
+          <SiYoutube className="w-[18px] h-[18px]" aria-hidden="true" role="presentation" focusable="false" />
+        </a>
       </div>
 
       {/* Canvas */}
@@ -321,13 +331,21 @@ export default function Hero() {
 
           <div
             ref={statusWrapperRef}
-            className="flex items-center gap-2"
+            className="flex flex-col gap-1.5"
             style={{ opacity: 0, transform: 'translateY(20px)', transition: 'opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s' }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" aria-hidden="true" />
-            <span className="text-[10px] font-mono text-blue-600 tracking-[0.3em] uppercase">
-              15+ Yrs Experience
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" aria-hidden="true" />
+              <span className="text-[10px] font-mono text-blue-600 tracking-[0.3em] uppercase">
+                15+ Yrs Experience
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-gray-600" aria-hidden="true" />
+              <span className="text-[10px] font-mono text-gray-500 tracking-[0.3em] uppercase">
+                Ahmedabad, India
+              </span>
+            </div>
           </div>
         </div>
 

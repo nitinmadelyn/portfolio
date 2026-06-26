@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FiCpu, FiShield, FiActivity, FiArrowUpRight } from 'react-icons/fi';
-import { SiGithub, SiUpwork } from 'react-icons/si';
+import { SiGithub, SiUpwork, SiYoutube } from 'react-icons/si';
 import { FiLinkedin } from 'react-icons/fi';
 
 const socialLinks = [
@@ -21,6 +21,12 @@ const socialLinks = [
     label: 'UPWORK',
     url: 'https://www.upwork.com/freelancers/~019197dea2650064ed?viewMode=1',
     color: 'hover:text-green-400',
+  },
+  {
+    icon: <SiYoutube aria-hidden="true" role="presentation" focusable="false" />,
+    label: 'YOUTUBE',
+    url: 'https://www.youtube.com/@nightfighter47',
+    color: 'hover:text-red-500',
   },
 ];
 
